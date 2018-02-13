@@ -25,3 +25,9 @@ bibtex thesis
 pdflatex thesis
 pdflatex thesis
 ```
+
+
+Style
+=====
+Notice how chapters are broken up into multiple LaTeX files. 
+This enables easy diagnosis of such a large document.
