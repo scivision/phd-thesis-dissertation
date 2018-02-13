@@ -1,0 +1,23 @@
+\begin{figure}\centering
+	\begin{tikzpicture}
+	\node (mirror) [startstop] {Mirroring ions and electrons \par };
+	
+	\node (fac) [process,below of=mirror,xshift=-3cm,yshift=-0.5cm] {FAC \par};
+	
+	\node (ion) [startstop,below of = fac,text width=3cm,yshift=-0.5cm] {ion/electron diffuse aurora \par};
+	
+	\node (inv) [process,right of = fac,xshift=4cm] { Inverted-V, double layer \par};
+	
+	\node (mono) [startstop,below of = inv,text width=4cm,yshift=-0.5cm] { Discrete, monoenergetic aurora \par };
+	
+	
+	\draw[arrow] (mirror) -- (fac);
+	\draw[arrow] (fac) -- (ion);
+	
+	\draw[arrow] (mirror) -- (inv);
+	\draw[arrow] (inv) -- (mono);
+	
+	\end{tikzpicture}
+	\caption{Block diagram of non-Alfvénic aurora acceleration mechanism.}
+	\label{fig:nonalfvenblock}
+\end{figure}

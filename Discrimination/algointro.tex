@@ -1,0 +1,94 @@
+\section{Dynamic Structured Aurora Discriminator Algorithm}\label{sec:discalgo}
+
+Alfvénic auroral morphology includes:
+\begin{enumerate}
+    \item laterally splitting arcs
+    \item thin, rapidly laterally moving auroral arcs
+    \item flaming aurora consistent with DAW from \unit[100]{eV}..\unit[10]{keV} electron precipitation
+\end{enumerate}
+The DSAD algorithm was needed for the HiST system in order to avoid having to manually wade through the 90+\% of video without the fine $B_\perp$ spatiotemporal dynamics corresponding to DAW particle acceleration.
+Section~\ref{sec:cvmot} gives background and motivation for the DSAD algorithm developed during the dissertation work for the DMC and HiST systems.
+Subsequent sections describe the components of the DSAD algorithm depicted in Figure~\ref{fig:blockcv}.
+
+
+\subsection{Machine Vision Applied to Auroral Video}\label{sec:cvmot}
+The design of geoscience remote sensing instruments, whether ground-based, space-based or somewhere in-between generally is designed around the amount of dataflow from the instrument to the researcher.
+Geoscience instrument dataflow may be streamed over the Internet or via a radio transceiver.
+Instruments more remotely located are more likely to cache data on-site, like a satellite ejecting a film canister \citep{nageswararao2009} or human doing a yearly swap of an SD card in a remotely-sited magnetometer instrument.
+Some geoscience instrument data may never be transmitted due to to transmission or storage media errors.
+Other systems by design use FIFO/circular buffers, decimation and other techniques to discard uninteresting data or data of excess fidelity.
+Ultimately there is a dataflow constraint that helps drive the overall instrument design.
+
+At present, computer technology is capable of storing and online processing of the full speed datastream of geoscience instruments that computers of a decade ago could only process in short bursts, for example the analysis in \citet{dahlgren2013}.
+Computer vision techniques adequate for detecting Alfvénic aurora have been implemented for the DMC and HiST systems and are well within the capability of a commodity PC used for camera data acquisition.
+As technology improves in high-speed science-grade cameras (so denoted for reasons including repeatability of absolutely scaled intensity) and multi-core CPUs, the ability to conduct extended ionospheric observations at time sampling rates approaching the limits of ground-observable SNR-limited physics has at last become feasible \citep{hirsch2016}.
+%Portable USB 3 hard drives have grown adequate to capture 200~GB/hour from 50~fps Electron Multiplying Charge Coupled Device (EMCCD) cameras.
+%A season's worth of aurora can be stored in 8~terabyte USB~3 hard drives at each camera site, assuming there is aurora of interest for 5\% of the dark hours.
+Autonomous machine vision algorithms allow storing only auroral video of the desired morphology (e.g. thin discrete arcs), saving hard drive space and human review time via automatic upload of interesting video snippets to a public repository for prompt access.
+The HDF5 \citep{hdf5} auroral image stacks are uploaded to Zenodo \citep{zenodo} for permanent public archiving.
+Modern processing algorithms such as \citet{isrutils} allow rapid loading and processing of the large ISR raw data files.
+
+Most geoscience dataflows employ data reduction in the course of estimating an unobservable science quantity.
+For example, a project like Aurorasaurus.org \citep{macdonald2015} must reduce raw human input via a variety of established methods to winnow out useful tweets from the flood of tweets mentioning terms that possibly involve geophysical aurora displays in sight of the Twitter user.
+Rarely observed events such as auroral beading have had some of the best data collected \citep{aurorasaurus-bead} from the Aurorasaurus project.
+Another example of an aurora-associated phenomenon requiring long-term persistent observation are the occasionally human-reported sounds associated with aurora that were long thought debunked--until several years of persistent observation paid off with observations leading to estimates of an acoustically-plausible source altitude time-correlated with auroral dynamics \citep{audio2016}.
+
+One of the factors delaying discovery of new phenomena and revisiting old phenomena to enhance or replace explanations is the typical need for the human observation team to sit in a shed or car watching over the expensive equipment in a several day or week campaign.
+Having designated days or weeks where all available instruments are turned on is beneficial for new insights.
+It would be even more advantageous for new discoveries and statistics to simply have all the instruments on all the time.
+A few factors working against long-term persistent unattended ground-based observatories include:
+\begin{enumerate}
+    \item Too expensive per-site instrumentation (fear of theft)
+    \item Too much data to store
+    \item Software not robust enough for unattended operation
+\end{enumerate}
+The ``expensive per-site equipment'' issue is being solved by a new wave of experimental designers including the author using advances in computer, open source, and software-defined instrument technology.
+The ``too much data'' and ``software not robust'' problems are addressed in the dissertation work.
+
+The \unit[10]{TB} internal HDD available today are enough for several nights of data from a typical EMCCD camera in increasing use for quantitative auroral observation.
+This helps avoid certain improvised solutions for collecting data such as:
+\begin{itemize}
+    \item reduced frame rate
+    \item human on-site or remotely watching video to press ``record''
+    \item collecting periodic bursts of data
+\end{itemize}
+Those improvised workarounds result in substantial loss of data and increased effort to manually peruse what data is collected.
+By simply collecting all the video each night of auroral observation, as long as we can process the video via software fast enough during the day, we will clear out the unwanted data and copy out only the ``good'' data.
+By not needing to do on-line, real-time filtering of the video stream, we can employ much more sophisticated algorithms without the need to worry about multi-core processing, RAM capacity, and the like.
+This improves overall robustness of the data collection and significantly reduces difficulty of programming.
+
+Assuming the camera manufacturer has done an appropriate design and specification verification, writing a program to simply start and stop the camera at dusk and dawn, saving all data to disk should be straightforward.
+One may rely on operating system disk buffering to handle slight hiccups due to hard drive seeks.
+Intuitively it is appropriate to use a second hard drive dedicated to data for writing, not sharing the same hard drive as the operating system--even if the hard drive is solid state due to seek time and IOPs limitations of the OS-hosting HDD.
+
+Previous work in the area of auroral detection has included static brightness thresholding, dynamic histogram thresholding akin to Otsu's Method \citep{otsu1979}, and skeletonizing \citep{lam1992,saeed2010}.
+The auroral forms of interest for this manuscript are those driven by DAW.
+An auroral classifier that distinguishes between thin aurora forms as in Figure~\ref{fig:cartoonmorph} vs. diffuse auroral forms is suitable for this task. 
+The data inversion algorithm of chapter~\ref{chapter:sim} completes the discrimination between inverted-V driven aurora vs. two-stream upflow vs. Alfvén aurora.
+Note that the auroral forms of interest may be quite faint, perhaps with brightness near or below the camera noise level.
+The algorithm described in this section detects interesting auroral forms with such low SNR that they are not immediately obvious to humans watching the video.
+The false positive rate is low enough so as not to be burdensome to the system operators.
+
+For Alfvénic auroral arcs viewed in an image stack with axes (x,y), there is generally observed motion of the arc along $B_\perp$, such that for pixel intensity $I$
+\begin{eqnarray}\label{eq:alwaysmoving}
+C_x > \left|\frac{\partial I}{\partial x}\right| & \gg & 0 \\
+C_y > \left|\frac{\partial I}{\partial y}\right| & \gg & 0 \nonumber
+\end{eqnarray}
+and let
+\begin{equation}
+ C = C_x \equiv C_y.
+\end{equation}
+$C$ is chosen using a median constant false alarm rate (CFAR) method, adapting to spatially discrete, noisy point sources such as stars.
+\eqref{eq:alwaysmoving} implies that
+\begin{equation}\label{eq:changingI}
+\frac{\partial I}{\partial t} \neq 0
+\end{equation}
+due to the optically thin nature of aurora expressed in \eqref{eq:bint}.
+\eqref{eq:changingI} violates the data conservation constraint employed with classic optical flow techniques.
+This violation will have a spatially coherent behavior materially different than the environmental and sensor noise--a factor to exploit in automated auroral detection \citep{blixt2006}.
+Salient characteristics of the interesting auroral forms include:
+\begin{enumerate}
+    \item collective behavior: the arc might deform, split, or translate but with spatial cohesion
+    \item discernible width: (maximum to 10\% brightness) of about 100..1000~m 
+    \item spatially smooth: diffusion implies there is no spatial ``popcorning'' or highly discrete illumination like stars
+\end{enumerate}

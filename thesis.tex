@@ -1,0 +1,145 @@
+% !TeX TS-program = pdflatex
+
+% BU ECE template for MS thesis and PhD dissertation.
+\documentclass[12pt]{report}          % Single-sided printing for the library
+\usepackage[letterpaper]{geometry}
+%\documentclass[12pt,twoside]{report} % Double-sided printing
+\usepackage[T1]{fontenc}
+\usepackage[intlimits]{mathtools}
+\usepackage{mathrsfs} %enables formal \mathscr
+\usepackage{amsfonts,amssymb}
+%\usepackage{textcomp} % \textdegree  %gensymb $\degree$
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+
+\usepackage[pagewise]{lineno}
+%\linenumbers
+
+\usepackage{natbib} %needed for citet
+\usepackage{apalike}
+\usepackage{float}
+\usepackage[bf]{caption}       
+\setcaptionmargin{0.5in}
+\usepackage{fancyhdr}
+%\usepackage{fancyheadings}
+\usepackage{fancybox}
+\usepackage{ifthen}
+\usepackage{bu_ece_thesis}
+\usepackage[hidelinks]{hyperref} %{url}
+\usepackage{lscape,afterpage}
+\usepackage{xspace}
+\usepackage{epstopdf} 
+\usepackage{rotating}
+% % % % %
+\usepackage{subcaption} % more advanced than old buggy subfig and subfigure
+\usepackage{booktabs} % nicer tables
+\usepackage{algorithm,algpseudocode}
+%==========================================================================%
+%%% graphicx and pdf creation
+\usepackage{graphicx}
+\usepackage{appendix}
+%\usepackage{psfrag}
+%\DeclareGraphicsExtensions{.eps}   % extension for included graphics
+%\usepackage{thumbpdf}              % thumbnails for ps2pdf
+%\usepackage[ps2pdf,                % hyper-references for ps2pdf
+%bookmarks=true,%                   % generate bookmarks ...
+%bookmarksnumbered=true,%           % ... with numbers
+%hypertexnames=false,%              % needed for correct links to figures !!!
+%breaklinks=true,%                  % breaks lines, but links are very small
+%linkbordercolor={0 0 1},%          % blue frames around links
+%pdfborder={0 0 112.0}]{hyperref}%  % border-width of frames 
+%                                   % will be multiplied with 0.009 by ps2pdf
+%\hypersetup{
+%  pdfauthor   = {Joe Graduate <joe.graduate@bu.edu>},
+%  pdftitle    = {dissertation.pdf},
+%  pdfsubject  = {doctoral dissertations},
+%  pdfkeywords = {mathematics, science, technology},
+%  pdfcreator  = {LaTeX with hyperref package},
+%  pdfproducer = {dvips + ps2pdf}
+%}
+%==========================================================================%
+% customized commands can be placed here
+%\newcommand{\figref}[1]{Figure~\ref{#1}}
+%\newcommand{\chapref}[1]{Chapter~\ref{#1}}
+%\newcommand{\latex}{\LaTeX\xspace}
+%==========================================================================%
+
+% % % % %
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\usepackage{units} %necessary for \nicefrac
+\usepackage{epigraph}
+\usepackage[utf8]{inputenc}
+\usepackage[section]{placeins}
+\usepackage{tikz}
+%\usepackage[clean]{svg} doesn't work in linux or windows for this style...
+% % % % % % % % % %
+\usepackage{marginnote}
+% % % % % % % % % % % % % % % %
+\usepackage{harpoon} %my favorite vector
+\newcommand*{\vect}[1]{\overrightharp{\ensuremath{#1}}}
+% % % % % % % % % % % % % % %
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows}
+%
+\tikzstyle{startstop} = [rectangle, rounded corners, text centered, draw=black, fill=blue!10]
+\tikzstyle{process} = [rectangle, minimum width=2cm,  text centered, draw=black, fill=orange!10]
+\tikzstyle{decision} = [diamond, aspect=3, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!10]
+% define arrow style
+\tikzstyle{compute} = [rectangle, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=green!10]
+\tikzstyle{estimate} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=yellow!10]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+% % % % % % % % % % %
+%\usetikzlibrary{matrix,positioning} % math matrices
+% % % % % % % % % % % % % % %
+\usepackage{enumitem}
+\usepackage{pdfpages}
+% % % % % % % % % % %
+
+
+\begin{document}
+
+\nolinenumbers
+% The preliminary pages
+\include{Prelim/prelim}        
+\cleardoublepage
+
+
+\include{Intro/main}\cleardoublepage
+
+\include{Physics/main}\cleardoublepage
+
+\include{Instruments/main}\cleardoublepage
+
+\include{Discrimination/main}\cleardoublepage
+
+\include{Simulation/main}\cleardoublepage
+
+\include{Fusion/main}\cleardoublepage
+
+\include{Concl/conclusion}\cleardoublepage
+
+\begin{appendices}
+\input{Marsis/main}\cleardoublepage
+\input{Passive/main}\cleardoublepage
+\input{Ops/main.tex} % include doesn't work
+\end{appendices}
+%==========================================================================%
+% Bibliography
+\nolinenumbers
+\newpage
+\singlespace
+\raggedright % helps URLs and DOIs not blast into right margin so much.
+\bibliographystyle{apalike-refs}
+
+% each subdirectory can have its own BiBTeX file
+\bibliography{thesis}
+\cleardoublepage
+
+%==========================================================================%
+% Curriculum Vitae
+% \include{Prelim/cv} 
+
+%==========================================================================%
+\end{document}

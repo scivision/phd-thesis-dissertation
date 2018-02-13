@@ -1,0 +1,19 @@
+\begin{figure}\centering
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+
+    \node (in) [startstop,text width=2cm] {streaming data frames \par};
+
+    \node (detect) [compute, right of=in,text width=3.5cm,xshift=2cm] { Detect Ionospheric Turbulence \par };
+
+    \node (reduce) [process, right of=detect, text width=3cm,xshift=2.5cm] { Parameter Extraction \par };
+
+
+    \draw[arrow] (in) -- (detect);
+    \draw[arrow] (detect) -- (reduce);
+
+    \end{tikzpicture}
+
+    \caption{Block diagram of general passive hitchhiker radar ionospheric turbulence detection algorithm.}
+    \label{fig:fmgenalgo}
+\end{figure}

@@ -1,0 +1,38 @@
+\FloatBarrier
+\subsection{Magnetic Mirroring}\label{sec:mirror}
+In general, geomagnetic field lines are not straight. 
+The geomagnetic field $B$ converges near Earth and in the magnetotail. 
+A significant percentage of the ions and electrons trapped in the geomagnetic field ``mirror''.
+Magnetic mirroring here means that $v_\parallel$ changes sign, reversing the direction of particle travel along $B_\parallel$ in the lower magnetosphere and in the magnetotail. 
+If via external fields or system reconfiguration a particle's $v_\parallel$ grows significantly enough relative to $v_\perp$, that is, the particle pitch angle \eqref{eq:pitch} decreases, the particle will enter the loss cone and penetrate into the ionosphere.
+
+For a collisionless plasma with slowly changing fields, that is, where the scales of field gradients are small compared to the particle gyroradius, the magnetic moment of the particle \citep{kivelson,chenbook}
+\begin{equation}\label{eq:adiabatic1}
+\mu = \frac{ m v^2_\perp}{2B}
+\end{equation}
+remains constant.
+When the direction and magnitude of $B$ and $v_\perp$ in \eqref{eq:adiabatic1} change slowly, $\mu$ is the constant known as the first adiabatic invariant. 
+Converging $B$-field lines imply $B$ is increasing. 
+Since particle mass $m$ is a constant and $\mu$ must remain approximately constant, $v_\perp$ must increase so that $\frac{v^2_\perp}{B}$ remains constant while maintaining a constant
+\begin{equation}\label{eq:vcomp}
+v = v_\perp + v_\parallel
+\end{equation}
+since we assume other acceleration sources are negligible.
+\eqref{eq:vcomp} and \eqref{eq:adiabatic1} imply that $v_\parallel$ must decrease as $v_\perp$ increases.
+Where $\alpha_p \rightarrow \frac{\pi}{2}$ in \eqref{eq:pitch} $v_\parallel \rightarrow 0 $ and the particle mirrors.
+For the Earth's ionosphere, electrons mirror with bounce frequency of order \unit[0.1..10]{Hz} and ions mirror with a period of \unit[1..10]{min} \citep{kivelson,newell2009}.
+Another implication of \eqref{eq:pitch} with \eqref{eq:adiabatic1} and \eqref{eq:vcomp} and the assumption there is no $E \parallel B$ is that particle kinetic energy
+\begin{equation}
+W = \frac{1}{2} m v^2 = \frac{1}{2} m \left(v^2_\perp + v^2_\parallel\right)
+\end{equation}
+is constant, and thereby
+\begin{equation}
+W_\parallel = W \cos^2 \alpha_p
+\end{equation}
+and 
+\begin{equation}
+W_\perp = W \sin^2 \alpha_p.
+\end{equation}
+
+%TODO give typical gyrofrequency
+

@@ -1,0 +1,58 @@
+
+\FloatBarrier
+\subsection{Single Particle Motion}
+The basic equation of motion for a mass $m$ experiencing a force $\vect{F}$ is
+\begin{equation}\label{eq:Feqma}
+\vect{F}=m\vect{a} = m \frac{d\vect{v}}{dt}.
+%\marginnote{eqn. of motion}
+\end{equation}
+In the presence of electric field $\vect{E}$, the Lorentz force on a particle with charge $q$ is
+\begin{equation}\label{eq:lorentzforceBeq0}
+\vect{F} = q\vect{E}.
+%\marginnote{Lorentz force, \ensuremath{B\equiv0}}
+\end{equation}
+In the presence of a magnetic field $\vect{B}$ and electric field $\vect{E}$, a particle at rest will be accelerated and gyrate about $\vect{B}$, driven by the Lorentz force
+\begin{equation}\label{eq:lorentzforce}
+\vect{F} = q\left(\vect{E} + \vect{v}\times\vect{B}\right).
+%\marginnote{Lorentz force}
+\end{equation}
+The decomposition of \eqref{eq:lorentzforce} into components
+\begin{equation}\label{eq:Fperppar}
+\vect{F} = \vect{F}_\parallel + \vect{F}_\perp
+\end{equation}
+where $\vect{F}_\parallel\in \vect{F} \parallel \vect{B}$ and $\vect{F}_\perp \in \vect{F} \perp \vect{B}$\ leads  to the notion that charged particles will gyrate in a magnetic field, with motion along $\vect{B}$ driven by $\vect{E}$ \citep{cravensbook}. 
+
+For simplicity we drop the vector symbol where the context is clear.
+The sign of $q$ indicates that positive and negative particles will move in opposite direction for both $F_\parallel$ and $F_\perp$. 
+Aurora is observed \citep{borovsky1993} from the solution of~\eqref{eq:Feqma} for particles along $B$
+\begin{equation}\label{eq:vpar}
+v_\parallel = v_{\parallel,0} + \frac{F_\parallel}{m}t
+%\marginnote{\ensuremath{v \parallel B}}.
+\end{equation}
+The gyroradius
+\begin{equation}\label{eq:gyrad}
+r_L = \frac{m_s v_\perp}{qB}
+%\marginnote{gyroradius}
+\end{equation}
+and gyrofrequency
+\begin{equation}\label{eq:gyfreq}
+\Omega_s = \frac{q B}{m_s}
+%\marginnote{gyrofrequency}
+\end{equation}
+follow from solving for 
+\begin{equation}\label{eq:vperp}
+v_\perp^2 = v_x^2 + v_y^2 
+%\marginnote{\ensuremath{v \perp B}}
+\end{equation}
+with components
+\begin{align}
+v_x &= v_\perp \cos{\left( \Omega t + \theta \right)} \label{eq:vxy} \\
+v_y &= \mp v_\perp \sin{\left( \Omega t + \theta \right)} \nonumber.
+\end{align}
+The pitch angle
+\begin{equation}\label{eq:pitch}
+\alpha_p = \tan^{-1}{\frac{v_\perp}{v_\parallel}}
+%\marginnote{pitch angle}
+\end{equation}
+of a particle is the angle between $\vect{v}$ and $\vect{B}$.
+As discussed in section~\ref{sec:losscone}, pitch angle is important for determining which particles are most likely to be lost during magnetic mirroring and thereby potentially appearing as aurora.

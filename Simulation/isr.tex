@@ -1,0 +1,28 @@
+\section{ISR Data Inversion}\label{sec:isrinv}
+Recent work on inversion of auroral observations to estimate the incident precipitation energy flux distribution at the top of the ionosphere includes \citet{zett2007,semeter2012,dahlgren2013,wedlund2013,hirsch2016}. 
+An overview of the inversion process needed is
+\begin{equation}\label{eq:fiefk1}
+\vec{q} = \mathbf{A}\vec{\phi}
+\end{equation}
+where $\vec{q}$ is a $z \times 1$ column vector of ionization rates--ionization caused by electron precipitation into the ionosphere, and
+\begin{equation}\label{eq:fiefk2}
+\vec{P} = \mathbf{B} \vec{\phi}
+\end{equation}
+where $\vec{P}$ is a $z \times 1$ column vector of VER caused by kinetic interactions of precipitating electrons with the ionosphere \citep{wedlund2013}.
+
+The electron precipitation is represented by $\vect{\phi}$, an $E \times 1$ column vector of ionization rates. 
+$z$ is the number of altitude bins chosen in the discrete problem. 
+$E$ is the number of differential energy bins chosen in the discrete problem. 
+$\mathbf{A}$ and $\mathbf{B}$ are each of dimensions $z \times E$.
+
+
+
+
+
+\citet{partamies2004} omits secondary electrons, since they have energies of less than 100 eV. % [p. 1968 last paragraph]
+A significant portion of energy observed by the \unit[32]{eV}..\unit[30]{keV} DMSP particle detector is above \unit[8]{keV} \citep{partamies2004}. % [p.1969 first para].
+p. 1964 $$ 1\textrm{mW/m}^2 = 6.24\times10^{12} \textrm{keV/m}^2\textrm{s} $$
+
+\citet{partamies2004} used SPECTRUM, a non-standard FORTRAN 77 program translated by Annika Olsson to Matlab to calculate energy fluxes from the $N_e$ measured by ISR.
+\url{http://www.lunduniversity.lu.se/lucat/user/54539ff9da4c67bb5baee00c09f22816}
+\url{ftp://ftp.irf.se/pub/perm/ESRAD/SPECTRUM/}

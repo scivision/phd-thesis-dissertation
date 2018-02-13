@@ -1,0 +1,28 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (in) [startstop,text width=2.5cm] {Load next image};
+    
+    \node (filt) [process, below of=in,text width=2cm] { Wiener filter \par };
+ 
+    \node (gmm) [compute, below of=filt,] { GMM \par };
+
+	\node (erode) [compute, below of=gmm,text width=3cm] { Morphological Erosion \par};
+    \node (dilate)[compute,below of=erode,text width=3cm] { Morophlogical Dilation \par};
+    
+    \node (conn) [compute,below of=dilate,text width=3cm] { Connected Components \par};
+    
+    \node (loc) [startstop,below of=conn,text width=4cm] { Location and Extent of Turbulence \par};
+    
+    \draw[arrow] (in) -- (filt);
+    \draw[arrow] (filt) -- (gmm);
+    \draw[arrow] (gmm) -- (erode);
+    \draw[arrow] (erode) -- (dilate);
+    \draw[arrow] (dilate) -- (conn);
+    \draw[arrow] (conn) -- (loc);
+    \end{tikzpicture}
+    
+    \caption{Passive hitchhiker radio computer vision algorithm for detecting ionospheric turbulence.}
+    \label{fig:fmblock}
+\end{figure}

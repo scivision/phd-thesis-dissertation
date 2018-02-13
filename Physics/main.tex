@@ -1,0 +1,78 @@
+% !TEX root = thesis.tex
+
+\chapter{Background}
+\label{chapter:physics}
+\thispagestyle{myheadings}
+
+\graphicspath{{Physics/}}
+
+\epigraph{If each energy quantum of the exciting light, independent of all others, emits its energy to electrons, the velocity distribution of the electrons will be independent of the intensity of the excitation light. On the other hand, the number of electrons leaving the body will be proportional to the intensity of the excitation light under otherwise similar circumstances.... It must therefore be assumed that the kinetic energy of an electron is used to generate many light energy quanta.}{\citet{einstein1905}}
+
+The fine spatiotemporal dynamics of structured aurora have been studied for over a century, kicked off by leaders including Birkeland and Størmer from the 1890s onward.
+Geoscientists by the time of \citet{birkeland1908} understood that particles flowing from the sun interacted with the geomagnetic field.
+Before 1910 it was understood that perturbations of the geomagnetic field were directly related to the currents carried by what \citet{mcilwain1960} confirmed \textit{in situ} to be electrons for finely structured aurora.
+A common metric for finely structured aurora is that aurora of width along $B_\perp$ one kilometer or less, which is associated with precipitating electrons.
+The narrowest auroral structures driven by protons are nearly two orders of magnitude greater in width--interesting in their own right, but outside the scope of what the present HiST system is designed to observe.
+Inverted-V and Alfvénic aurora are two well-known types of finely structured aurora with distinct electron acceleration mechanisms distinguishable by \textit{in situ}, radar and optical sensors.
+Additional theories on fine structured auroral generation mechanisms include:
+\begin{enumerate}
+    \item Striped auroral patterns in diffuse background: whistler-mode upper band chorus \citep{nishiyama2012,sergienko2008}  
+    \item ``smokelike'' aurora: consisting of multiple thin wispy legs of approximately \unit[1..5]{km} width \citep{ebihara2010}, thought to be an interchange instability between hot electrons disturbing cold plasma
+\end{enumerate} 
+While we have not specifically examined the latter two cases due to their relative rarity versus Alfvénic aurora, their characteristics are within the observational capabilities of the HiST system.
+
+Geospace numerical modeling covers scales from particle-in-cell (PIC) simulations involving millions to billions of particles \citep{young2016} to the solar wind throughout the solar system \citep{echim2011}.
+The lifecycle dynamics of a geomagnetic storm are modeled from the inner magnetosphere \citep{tsyganenko2005} out to the solar wind interface \citep{tsyganenko1996}.
+While this dissertation focuses on the electron lifecycle in the ionosphere, sufficient understanding of the magnetosphere is a prerequisite for geospace study.
+The \citet{johnson1960} model expressed in Figure~\ref{fig:1960mag} was rapidly improved upon in the next several years \citep{mead1964} with the benefit of an increasing number of \textit{in situ} measurements driving iteration of improved models and theories.
+\begin{figure}
+	\includegraphics[width=\linewidth]{gfx/1960mag}
+	\caption{\citet{johnson1960} magnetospheric model, without benefit of \textit{in situ} measurements.}\label{fig:1960mag}
+\end{figure}
+In Figure~\ref{fig:1960mag}, the sun is far off the left side of the page.
+In the absence of the roughly \unit[400]{km/s} solar wind, the nearly dipolar geomagnetic field would appear roughly symmetric about the magnetic equator and rotationally symmetric across all longitudes.
+
+The solar wind compresses the dayside magnetic field, and drags out the magnetotail to tens of $R_E$.
+Every several hours, a substorm occurs where the magnetotail to the right of Figure~\ref{fig:1960mag} becomes overloaded with plasma, a plasmoid detaches permanently, and the magnetotail settles in closer to Earth.
+This cycle repeats endlessly, but with widely varying intensity of waves, particles, and ultimately precipitation incident into the ionosphere as represented in Figure~\ref{fig:magcirc}.
+\begin{figure}\centering
+	\includegraphics[width=\linewidth,trim=50 370 150 40,clip]{gfx/magcirc}
+	\caption{Simplified model for two mechanisms responsible for structured aurora. 
+		The parallel potential lines represent double-layers leading to inverted-V aurora. 
+		The sinusoid represents IAW acceleration. 
+		The contours represent $B$.}
+	\label{fig:magcirc}
+\end{figure}
+Conservation laws dictate that the gradients involved in geomagnetic system reconfiguration must be felt throughout the geomagnetic system.
+The magnetic field lines act as invisible transmission lines where ions and electrons travel freely, mirroring between the lower magnetosphere and magnetotail.
+Particles that gain sufficient energy, whether via acceleration processes or other events are at risk of being lost into the ionosphere through stochastically predictable, TRANSCAR modeled energy deposition processes.
+%The cold return current comes back up $B$ into the magnetosphere, closing the circuit depicted in Figure~\ref{fig:migcircuit}.
+%\begin{figure}
+%	\includegraphics[width=\columnwidth]{gfx/migcircuit}
+%	\caption{Alfven-wave transmission of magnetosphere-ionopshere-ground coupling, from \citet{kikuchi2014}.}
+%	\label{fig:migcircuit}
+%\end{figure}
+%\citet{kikuchi2014} further developed the circuit element model to compute characteristic impedance and reflection coefficients of the Alfvénic transmission line model and the waveguide model coupling ionosphere to ground.
+%%\begin{figure}
+%	\includegraphics[width=\linewidth]{../gfx/mi-transmission-line}
+%	\caption{\citet{kikuchi2014} circuit element model to compute reflection coefficients for the Alfvenic M-I coupling interface and waveguide model for G-I coupling.}
+%	\label{fig:distcirc}
+%\end{figure}
+
+These lost particles do not go quietly, rather their ``death'' is transmitted via electromagnetic waves from ELF through HF \citep{labelle2002}, as well as heat, light and X-rays \citep{raymont2008}.
+Strictly speaking the particles are not lost, but they may join the cold plasma background, participate with the currents in the auroral electrojet and/or once again rejoin the current systems in the magnetosphere \citep{hargreavesbook}.
+Although the understanding of auroral generation mechanisms are still incomplete at Earth and other planetary bodies, searches for radio \citep{nichols2012} and UV \citep{france2010} emissions from exoplanets have been undertaken.
+Exoplanet auroral measurements help constrain the atmospheric morphologies and compositions.
+Some of the challenges of quantifying auroral radio emissions in the tens of MHz range have been complicated by possibly interfering radio emissions from the magnetosphere of Jupiter \citep{labelle2002}, so more careful study is needed.
+The many types of emissions emanating throughout the auroral lifecycle would consume volumes to describe, thus this chapter covers the topics necessary for elucidating the remainder of the dissertation.
+
+This dissertation presents new ground-based observational capabilities associating ionospheric plasma flows and turbulence with Alfvén wave accelerated electron precipitation.
+In this chapter physical context is provided for discussion in the following chapters concerning characterization of ionospheric turbulence associated with Alfvénic aurora.
+One of the fundamental behaviors influencing the scale of aurora seen, and distinguishing between the behavior of electron aurora versus proton aurora is the gyration of charged particles in the presence of a magnetic field.
+We therefore begin the physics background with single particle motion and describe the acceleration of these particles by Alfvén waves.
+The energy deposition and production of auroral light emissions rounds out this chapter.
+
+\input{./Physics/plasma}
+\input{./Physics/deposition}
+\input{./Physics/optical}
+\input{./Physics/structured}

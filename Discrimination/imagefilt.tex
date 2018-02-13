@@ -1,0 +1,76 @@
+\FloatBarrier
+\subsection{Image Noise Filtering}\label{sec:filtnoise}
+Noise reduction is a common preprocessing step, particularly in auroral video where SNR is often low and the target is smooth as a result of diffusion of the particle stream scale for $\unit[100]{m} > B_\perp > \unit[10]{m}$ in the ionosphere.
+The 2-D Wiener filter is often chosen for auroral video noise reduction as the Wiener filter is MMSE-optimal for additive noise \citep{vaseghi2000} and in auroral video sensor noise is often strong due to low video SNR.
+The more advanced edge-preserving noise filters often of interest for terrestrial objects in commercial and personal photography are not necessarily relevant to auroral video since the physics dictate that the targets of interest are always spatially smooth.
+In this sense, a simpler filter such as a spatial low-pass filter or Gaussian blur are less computationally demanding while meeting the smoothing criterion.
+
+We assume the only degradation of the image is due to noise in the camera image sensor chip, since the camera is mounted stably and normally samples in excess of the auroral Nyquist rate.
+By these assumptions, the noise-free analog image $\mathscr{I}$ projected onto the semiconductor imaging array is corrupted by additive noise ensemble $\mathcal{N}$ into observable digital image $I$
+\begin{equation}\label{eq:imgmapsimple}
+I(i,j) = \mathscr{F}\lbrace\mathscr{I}(x,y)\rbrace + \mathcal{N}(i,j).
+\end{equation}
+$(x,y)$ are Cartesian coördinates in $\mathbb{R}^2$, where $\mathbb{R}$ is the set of real numbers.
+The pixel centers $(i,j)$ of $I$ are described by tuple pairs drawn from Cartesian space $\mathbb{Z}^2$, where $\mathbb{Z}$ is the set of all integers.
+By convention, $(x,y)$ and $(i,j)$ are used interchangeably where the context is clear.
+$\nu$ is the superposition of several stochastic noise processes in the image sensor.
+$\mathscr{F}\lbrace\cdot\rbrace$ represents the sampling of the digital image sensor, the mapping from analog image formed in the imaging plane to digital image in camera memory.
+Without loss of generality, in a noise-free system the imaging chip sampling process is modeled as
+\begin{equation}\label{eq:anadig}
+I(i,j) =\mathscr{F}\lbrace\mathscr{I}(x,y)\rbrace = \int_\lambda \int_{(x,y)\in \mathbb{R}^2} R(\lambda)F(x,y)\mathscr{I}(x,y) \textrm{d}\mathbb{R} \textrm{d}\lambda
+\end{equation}
+where $I$ is linearly quantized into 65,536 levels with 16 bits in a modern scientific camera.
+$F \in [0,1]$ is the dimensionless fill factor, normally near unity with modern scientific imaging chips.
+$R(\lambda)$ with units ampere/watt is the responsivity of the imaging chip as a function of wavelength $\lambda$, relating the photoelectron production in the imaging chip semiconductor material versus incident photon flux \citep{saha2015}
+\begin{equation}
+R(\lambda) = \eta_e(\lambda) \frac{e}{\hslash \nu}.
+\end{equation}
+where $\eta_e$ is the quantum efficiency of the imaging sensor (typically 0.5 for sCMOS and 0.9 for EMCCD at visible wavelengths), $e$ is electron charge, $\hslash$ is Planck's constant and $\nu$ is the frequency of the light.
+
+
+Since the EMCCD or sCMOS sensor temperature is hardware control loop stabilized to order $\unit[0.01]{^\circ C}$, each local pixel neighborhood may be considered wide-sense stationary (WSS) and ergodic \citep{kuan1985}.
+\citet{hunt1980} argued that even though the image mean is not globally ergodic, the autocovariance could be ergodic.
+In general the whole image is \textit{not} WSS or ergodic, but the localized WSS/ergodic Wiener filter described by \citet{kuan1985,jin2003} allow expedient Wiener-type filtering, particularly where the image histogram has a Gaussian-like probability distribution function (pdf) \citep{jin2003}.
+
+Particularly for smoothly varying auroral images, the local mean $\mu_l(x,y)$ of a noise-free image describes the brightness of the $m \times n$ pixel neighborhood $S_{xy}$.
+\begin{equation}\label{eq:localmean}
+\mu_l(x,y) = \frac{1}{mn} \sum_{(i,j)\in S_{xy}} I(i,j)
+\end{equation}
+$\mu_l(x,y)$ might be thought of as representing the low-frequency structure of an image class \citep{hunt1980}.
+%In fact,~\eqref{eq:localmean} can be used as a blurring filter itself.
+A mask size of $7\times7$ was empirically found to give adequate performance for typical EMCCD and sCMOS auroral video.
+\begin{equation}
+\textbf{M}=
+\begin{bmatrix} 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+1 & 1 & 1 & 1 & 1 & 1 & 1  
+\end{bmatrix}
+\end{equation}
+
+By extension, the local variance $\sigma_l^2(x,y)$ of a noise-free image describes the contrast and distinct structure within the pixel neighborhood.
+Using the definition of variance for general random variable $\xi$ with mean $\mu$
+\begin{equation}
+\sigma^2 = E[\xi^2] - \mu^2 = E[\xi^2] - (E[\xi])^2
+\end{equation}
+we obtain from~\eqref{eq:localmean}
+\begin{equation}\label{eq:localvar}
+\sigma_l^2(x,y) = \frac{1}{mn} \sum_{(i,j)\in S_{xy}} I^2(i,j) - \mu_l^2(x,y)
+\end{equation}
+
+\citet{kuan1985} introduced the nonstationary mean and nonstationary variance (NMNV) Wiener filter
+\begin{equation}\label{eq:nmnv}
+\widehat{\mathscr{I}} = \mu_l + \frac{\sigma_l^2 - \sigma_n^2}{\sigma_l^2}(I-u_l)
+\end{equation}
+where $\sigma_n^2$ is the noise variance.
+In SciPy \citep{scipy}, the efficient C-code implementation of~\eqref{eq:localmean} and~\eqref{eq:localvar} are obtained by cross-correlation with unity mask $\textbf{M}$ of the desired shape to compute~\eqref{eq:nmnv}.
+The NMNV Wiener filter has been more than adequate for an initial denoising of the video.
+
+Flat fielding (removal of image vignetting) and background subtraction (accounting for hot or cold pixels and DC sensor bias) are a standard part of auroral image processing, particularly for a tomographic system.
+After flat fielding and background subtraction, the image noise is i.i.d., WSS, and ergodic. 
+Thus a noise sample from a non-auroral image periodically allows a good noise estimate for the Wiener filter.
+In section~\ref{sec:of} we continue this heuristic approach when comparing a pixel neighborhood \textit{temporally}.

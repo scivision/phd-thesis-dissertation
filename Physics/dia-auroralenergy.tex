@@ -1,0 +1,35 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (in) [startstop,text width=2cm] {Solar Wind \par};
+    
+    \node (tail) [process, below of=in,text width=2.5cm,yshift=-0.5cm] { Magnetotail storage \textbf{growth}\par };
+    
+    \node (recon) [compute,below of=tail,text width=3cm,yshift=-0.5cm] { Reconnection \textbf{expansion} \par };
+    
+    \node (accel) [process, below of=recon, text width=3cm,yshift=-0.5cm] {Particle acceleration \textbf{dipolarization}\par };
+
+	\node (precip) [process, below of=accel,text width=3cm,yshift=-0.5cm] { Particle precipitation \par};
+	
+	\node (kinetic) [compute, below of=precip,text width=3cm] { Kinetic reaction \par};
+	\node (neutral) [startstop, left of=kinetic,text width=3cm,xshift=-2.5cm] {Ionospheric particles \par};
+	
+	\node (end) [startstop, below of=kinetic,text width=4cm] { Emissions: Light, heat, radio  \par};
+    
+    \draw[arrow] (in) -- (tail);
+    \draw[arrow] (tail) -- (recon);
+    \draw[arrow] (recon) -- (accel);
+    \draw[arrow] (accel) -- (precip);
+    
+    \draw[arrow] (neutral) -- (kinetic);
+    \draw[arrow] (precip) -- (kinetic);
+    
+    \draw[arrow] (kinetic) -- (end);
+
+    
+    \end{tikzpicture}
+    
+    \caption{Simplified model for substorm auroral energy dissipation during southward IMF, adapted from \citet{baker1996}.}
+    \label{fig:auroralenergy}
+\end{figure}

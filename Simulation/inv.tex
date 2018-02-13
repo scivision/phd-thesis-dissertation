@@ -1,0 +1,63 @@
+\section{HiST Data Inversion}\label{sec:inv}
+
+To estimate the characteristics of the time-dependent differential electron number flux $\Phi_{top}$ high in the ionosphere where collisionless processes dominate we employ a physics-based regularization scheme. 
+The poorly observed $B_\parallel$ dimension is regularized with a linear basis expansion of volume emission rate eigenprofiles calculated by the TRANSCAR model.
+The 33 log-spaced energy bins from \unit[58]{eV} to \unit[17.7]{keV} each have a coefficient estimated by our inversion algorithm for each $B_\perp$ location, comprising $\hat{\Phi}_{top}(B_\perp,E)$.
+For the simulations of chapter~\ref{chapter:sim}, $\hat{\Phi}_{top}$ has dimensions $(219,33)$.
+Regularization along $B_\parallel$ is key to finding a physically plausible solution from the infinitely many possible solutions due to the large null space of the inverse problem.
+The data inversion process is outlined in the right column of Fig.~\ref{fig:overall}.
+As observed in the middle row of Fig.~\ref{fig:est1dflame}, the volume emission rate is a smooth function of differential number flux and altitude.
+The smoothness justifies describing the relationship between the unobservable \textit{in situ} physics and the observable auroral intensity by the Fredholm Integral of the First Kind,
+%
+\begin{equation}\label{eq:fiefk}
+g(s) = \int_a^b K(s,t)f(t)\textrm{d}t
+\end{equation}
+%
+where $f(t)$ is the unknown quantity, $g(s)$ is the observed quantity, and $K(s,t)$ is the kernel through which $g(s)$ is observed, encompassing optical filters, line integration of volume emission rate, and noise. 
+For the present auroral tomography problem, we incorporate TRANSCAR eigenprofiles
+\begin{equation}\label{eq:eigentranscar}
+T(E,z) = \int_{\lambda} p_\lambda(E,z) M(\lambda) \textrm{d}\lambda
+\end{equation}
+in a representation of total auroral volume emission rate as
+%
+\begin{equation}\label{eq:fiefkE}
+P(z) = \int_0^\infty T(E,z) \Phi_{top}(E)\textrm{d}E
+\end{equation}
+%
+which has the same form as~\eqref{eq:fiefk} and may be discretized in matrix form,
+%
+\begin{equation}\label{eq:fiefkEmat}
+\mathbf{P} = \mathbf{T}\Phi_{top}
+\end{equation}
+%
+The discretized forms are convenient for computer implementation since the continuous integration~\eqref{eq:fiefkE} is represented by matrix multiplication~\eqref{eq:fiefkEmat}.
+The BG3 filtered and atmosphere attenuated continuüm of wavelengths is observed at the camera as grayscale intensity
+%
+\begin{equation}\label{eq:master}
+\textbf{L}\textbf{T}\Phi_{top}=\textbf{I}
+\end{equation}
+resulting in the data numbers $\mathbf{I}$ of~\eqref{eq:dn}.
+
+In general $\mathbf{L}$ and $\mathbf{T}$ are not square, so the inverse $\mathbf{L}^{-1}$ and $\mathbf{T}^{-1}$ are not defined in this underdetermined system.
+The ill-conditioned and Hadamard ill-posed nature of the problem arises both from the extreme problem geometry and that there is not a unique tomographic solution for the incident number flux causing an auroral display.
+A method for solving such problems via brute force is the use of minimization algorithms \citep{semeter1997}. 
+The algorithm selected for this effort is the Limited Memory Broyden-Fletcher-Goldfarb-Shanno algorithm \citep{Byrd1995,Zhu1997,Morales2011}, known as L-BFGS-B \citep{scipy}.
+This algorithm was selected based on fast convergence for the large number $(>7000)$ of $\hat{\Phi}_{top}(B_\perp,E)$  parameters to minimize based on an empirical comparison with other contemporary minimization techniques.
+
+For a particular realization of geophysical conditions and choice of differential number flux energy bins $\mathbf{T}$ is obtained from an off-line computation. 
+As implicit in \eqref{eq:fiefk}, $\mathbf{T}$ is identical in the forward model and data inversion.
+The 1-D slices of the synchronized images from each camera are stacked in column-major vector $\mathbf{I}$. 
+The 2-D array $\hat{\Phi}_{top}(B_\perp,E)$ has rows arranged by precipitation energy in eV and columns arranged by $B_\perp$ location in kilometers.
+We use L-BFGS-B minimization function
+\begin{equation}\label{eq:bmin}
+\hat{\Phi}_{top}(B_\perp,E) = \argmin_\Phi||\mathbf{I}-\mathbf{LT}\hat{\Phi}_{top} ||_2 =  \argmin_\Phi ||\mathbf{I}-\hat{\mathbf{I}}||_2
+\end{equation}
+with the bounds $\Phi \in \left[0,\infty\right)$ is given an initial guess $\Phi_{top}(B_\perp,E) \equiv 0$, and is allowed to run for 10--20 cycles. 
+Automated measurements of $E_0$ and $B_{\perp,0}$ are accomplished via a 2-D Gaussian fitter algorithm originally based on MINPACK \citep{Minpack}. 
+The region of the maximum differential number flux is fitted with a 2-D Gaussian using a Levenberg-Marquardt least squares algorithm to find the parameters best fitting the peak vicinity of $\hat{\Phi}_{top}$. 
+In general, the forward model will have limitations in absolute accuracy with regard to the physical world due to the model assumptions and simplifications necessary to get a tractable computation within time and memory constraints.
+We now examine simulations of two types of highly dynamic auroral events to show the feasibility of the HiST system for estimating $E_0$ and $B_{\perp,0}$.
+
+%\input{./Simulation/isr}
+
+

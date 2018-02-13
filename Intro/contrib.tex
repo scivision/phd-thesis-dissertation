@@ -1,0 +1,87 @@
+\section{Contributions}\label{sec:contrib}
+The central focus of the dissertation is on applications of modern radar and optical remote sensing techniques to advance understanding of finely structured electron beams interacting with the ionosphere.
+This involved constructing two networked auroral observatory systems deployed to Greenland (DMC) and central Alaska (HiST phase 1), and the design and build of HiST phase 2 for spring 2018 deployment in Alaska with dual cameras and TEC receivers.
+As is typical in dissertation work, a large subset of the work resulted in publications and presentations.
+Another substantial subset of the work resulted in contributions to state of the art geospace data processing and remote sensing data inversion software relevant to auroral, atmospheric, ionospheric and magnetospheric studies.
+Contribution categories concomitant to the dissertation work include: scholarly, instrumental, software, and algorithmic.
+
+\subsection{Novel Contributions}
+The dissertation contributions leading directly to scholarly work are enumerated in this section.
+\begin{enumerate}
+       
+    \item A joint analysis method for ISR and optical data, confirming and characterizing the relationship between Alfvénic aurora and ionospheric turbulence measured as strong ISR backscatter, described in \citet{hirsch2017jgr} and chapter~\ref{chapter:fusion} as well as \citep{hirsch2016unh,hirsch2016precip,hirsch15agu} 
+    
+    \item A novel auroral tomography data inversion algorithm using first principles physics model based iterative reconstruction, described in paper \citet{hirsch2016} and presentations/posters \citet{hirsch2015cedarposter,hirsch2015mtssp,hirsch2014agu,hirsch2014cedar,hirsch2014cedartalk,hirsch2014ursi,hirsch2012}
+    
+    \item A novel collective behavior discrimination algorithm useful for detecting structured aurora, making manageable the enormous amounts of data (terabytes per day) inherent in the observations necessary for \citep{hirsch2017jgr,hirsch2016} as detailed in chapter~\ref{chapter:discrim}, appendices~\ref{chapter:marsis} and~\ref{chapter:passive} and \citep{swoboda2016python,hirsch2016bigdata,hirsch2015cedartalk}
+\end{enumerate}
+
+
+\subsection{Instrumental Contributions}
+The DMC and HiST systems represented substantial advances over prior auroral observation techniques, and were pressed into a variety of observational services.
+\begin{enumerate}
+	
+	\item as distinguished from later work such as \citet{kataoka2016high} using longpass RG665 filters, HiST BG3 bandstop filters includes the critical N2+ emissions in the blue-UV range AND the deep red/near IR wavelengths that reveal the fastest ground-observable features in the aurora
+	
+	\item HiST cameras were a key part of a joint ISR-optical high-speed meteor triangulation and radar cross section (RCS) experiment to accurately estimate meteoroid mass \citep{limonta}
+	
+	\item HiST cameras provided prompt-emission only filtered video stream to complement unfiltered (metastable dominated) sCMOS for observation of IAW flickering aurora in February 2014 Polaris campaign at PFRR \citep{kataoka2015,fukuda2016}
+	
+	\item HiST cameras at \unit[20]{ms} cadence complemented \unit[13]{s} all-sky cameras for April 2014 PINOT mission at PFRR \citep{fallen2014,nishimura2014,makarevich2014}
+	
+	\item HiST cameras complementing additional narrowband-filtered EMCCD cameras, all-sky cameras, and other sensors for 3 March 2014 GREECE rocket flight, yielding \textit{in situ} sensing from \unit[300]{eV} to \unit[200]{keV} electrons, with \unit[2..200]{keV} measured at \unit[100]{ms} cadence \citep{michell2014agu,samara2014,grubbs2014,ogasawara2014,ogasawara2016,ogasawara2016a}
+	
+	\item HiST cameras provided high-speed video for use with the LiCHI hyperspectral imager, which provided four narrowband tunable wavelengths vs. HiST broadband prompt emissions at PFRR \citep{goenka2016,goenka2015,goenka2014}
+	
+	\item DMC camera pair provided insights into prompt-emission filtered aurora as seen simultaneously at decameter and kilometer scale at \unit[30]{fps}, while supporting high speed ISR measurements \citep{vierinen2016}
+    
+\end{enumerate}
+
+
+\subsection{Algorithmic Contributions}
+The algorithmic contributions of the dissertation work represent generalizable contributions that go beyond a specific software implementation, more than a set of techniques contrived to solve a particular problem.
+
+\begin{enumerate}
+    
+   \item Contributing to the new high-speed plasma line receiver techniques in \citet{vierinen2016agu,vierinen2016,bhatt2016sondre}, developed the analysis package \citet{dmcutils} that examined the time lag between electron density enhancements measured with Søndrestrøm ISR versus prompt auroral emissions seen through the DMC BG3 filter
+    
+   \item Observing high energy precipitation with characteristic energy $E_0 \gg \unit[100]{keV}$ requires dedicated instrument design, as well as models \citep{glowaurora,gridaurora} designed for high energy precipitation yielding X-rays as short as \unit[20]{\AA}, as proposed in \citet{sivadas2016cedar}
+  
+\item the collective behavior computer vision algorithm developed in chapter~\ref{chapter:discrim} is useful for distinguishing structured aurora from diffuse aurora, stars, clouds, and other undesired targets.
+
+\item A collective behavior computer vision algorithm was developed for passive FM hitchhiker radar, as detailed in chapter~\ref{chapter:passive}.
+
+\item Absolute image time recovery algorithm exploiting camera FPGA hardware outputs accounts for glitches and other nonidealities rampant even in high-end scientific cameras, vital for fusing data from heterogeneous sensors as described in section~\ref{sec:hist}.
+
+\item A physics model based iterative reconstruction algorithm (MBIR) incorporating broadband auroral emissions to estimate magnetospheric precipitation characteristics at the top of the ionosphere, as described in chapter~\ref{chapter:sim}.
+
+\item Retrieval method and automatic detection of local plasma oscillations for MARSIS radar exploring the Martian ionosphere as described in chapter~\ref{chapter:marsis}. Code developed was mutually shared with a European researcher, and over the course of several Skype sessions, they had developed a dual to the author's methods \citep{andrews2013} to exploit the decade's worth of MARSIS data in discovering and quantifying stable regions in the Martian dayside ionosphere \citep{andrews2014} and their driving parameters \citep{dieval2015} especially by crustal fields \citep{andrews2015}, analyzing a highly anomalous high-altitude plume in the Martian ionosphere \citep{andrews2016}, exploring topside Martian ionospheric morphology during various solar wind conditions \citep{withers2016} and characterized precipitation outcomes \citep{dubinin2015}.
+
+\end{enumerate}
+
+\subsection{Software Contributions}
+Software collaborative contributions during the dissertation work include:
+
+\begin{enumerate}    
+    \item Update auroral tomography software suite \texttt{AIDA-tools} \citep{aidatools} to run on modern MATLAB versions
+    
+    \item Reimplement LOWTRAN atmospheric absorption model in Python \citep{lowtran} replacing 1980s Fortran mainframe/punched interface \citep{lowtran7} with easy to use \texttt{f2py} Python-Fortran interface
+    
+    \item Auroral phantom generator \citep{cvphantom}, incorporating several canonical auroral types including discrete arcs, vortex streets and vortex streets--including arbitrary motion (direction, speed) vs. time
+    
+    \item Geospace coördinate conversion suite for Python, vectorized to allow fast, accurate conversion between coördinate systems \citep{pymap3d}
+    
+    \item Highly efficient RINEX reader for Mahali GPS \citep{pankratius2014,semeter2016,pankratius2016ams} allowing reading large numbers of files from the Mahali distributed GPS network, forming a basis of the Geoscience Ionospheric Toolkit (GSIT) \citep{gsit}.
+    
+    \item Update seven optical flow estimation programs \citep{barron1994code} from \citep{barron1994} to compile on modern Intel PC/Mac for use with \citep{cviono} in discriminating auroral forms.
+    
+    \item enhanced 1-D Zakharov simulations \citep{zakharov1d} used in \citep{akbari2015,akbari2016,akbaridis} to run in parallel with command-line specified parameters
+    
+    \item Created numerous geospace data reading and formatting packages for instruments including DASC \citep{dascutils}, P-DMSP \citep{meridianreader} and multiple AMISR locations plus Søndrestrøm \citep{isrutils}
+    
+    \item contributed core code segments to GeoData and several associated programs \citep{geodata} used in \citet{swoboda2015,swobodathesis}
+    
+    \item Created reader and plotter for THEMIS ASI GBO \citep{donovan2006} data \citep{hirschthemis}
+\end{enumerate} 
+
+    

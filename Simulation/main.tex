@@ -1,0 +1,25 @@
+\chapter{Feasibility of Reconstructing Fast Fine Scale Auroral Precipitation}
+\label{chapter:sim}
+\thispagestyle{myheadings}
+
+\graphicspath{{Simulation/}}
+
+\epigraph{I can now demonstrate the great advantage of parallactic pictures. With known star backgrounds, we can estimate not only the auroral heights, but also their locations. We take good picture of intense auroras with an exposure time of only one fifth of a second. Of all cameras I brought with me, the simplest is the best.
+It was not at all easy to lay down 4310 meter telephone cables between our two stations during winter and to take them up again.
+On every night that auroral displays were in view, I had to find a star, or some star patterns in the middle of the auroras. As soon as that was done, I called Birkeland and asked him to point his camera toward that star. Shortly thereafter I would say: ``Get ready,'' then ``Take the first picture.'' Normally we took several simultaneous pictures from both stations.}{Størmer 1911 translated by \citet{egeland2013}}
+
+We present a feasibility study for a high frame rate, short baseline auroral tomographic imaging system useful for estimating parametric variations in the precipitating electron number flux spectrum of dynamic auroral events. 
+Of particular interest are auroral substorms, characterized by spatial variations of order \unit[100]{m} and temporal variations of order \unit[10]{ms}.  
+These scales are thought to be produced by dispersive Alfvén waves in the near-Earth magnetosphere. 
+The auroral tomography system characterized in this paper reconstructs the auroral volume emission rate to estimate the characteristic energy and location in the direction perpendicular to the geomagnetic field of peak electron precipitation flux using a distributed network of precisely synchronized ground-based cameras. 
+As the observing baseline decreases, the tomographic inverse problem becomes highly ill-conditioned; as the sampling rate increases, the signal-to-noise ratio degrades and synchronization requirements become increasingly critical. 
+Our approach to these challenges uses a physics-based auroral model to regularize the poorly-observed vertical dimension.  
+Specifically, the vertical dimension is expanded in a low-dimensional basis consisting of eigenprofiles computed over the range of expected energies in the precipitating electron flux, while the horizontal dimension retains a standard orthogonal pixel basis.  
+Simulation results show typical characteristic energy estimation error less than 30\% for a 3~km baseline achievable within the confines of the Poker Flat Research Range, using GPS-synchronized Electron Multiplying CCD cameras with broad-band BG3 optical filters that pass prompt auroral emissions.
+
+\input{./Simulation/intro}
+\input{./Simulation/fwd}
+\input{./Simulation/inv}
+\input{./Simulation/flaming}
+\input{./Simulation/transverse}
+\input{./Simulation/concl}

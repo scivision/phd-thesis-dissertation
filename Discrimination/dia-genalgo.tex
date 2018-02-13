@@ -1,0 +1,22 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (in) [startstop,text width=2cm] {streaming data frames \par};
+    
+    \node (detect) [compute, right of=in,text width=3cm,xshift=2cm] { Detect Auroral Morphology \par };
+    
+    \node (reduce) [process, right of=detect, text width=3cm,xshift=2.5cm] { Dimensionality Reduction \par };
+
+	\node (store) [startstop, right of=reduce,text width=3cm,xshift=2.5cm] { store/transmit tabulated data \par};
+    
+    \draw[arrow] (in) -- (detect);
+    \draw[arrow] (detect) -- (reduce);
+    \draw[arrow] (reduce) -- (store);
+
+    
+    \end{tikzpicture}
+    
+    \caption{Block diagram of DSAD algorithm.}
+    \label{fig:genalgo}
+\end{figure}

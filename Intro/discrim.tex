@@ -1,0 +1,21 @@
+\FloatBarrier
+\subsection{Discrimination of Ionospheric Turbulence in Radar and Optical Data}\label{sec:intdiscrim}
+Detection of ionospheric turbulence in multiple sensor types is vital to proving a consistent connection between particular auroral manifestations and the turbulence seen in radar sensors.
+Methods were developed using extensions of standard radar practice and novel applications of computer vision algorithms to the unusually low SNR presented by auroral video.
+Standard computer vision techniques are applied to high SNR video, tracking rigid bodies in the face of occlusion, lighting variation and other such challenges.
+Auroral video quite literally breaks many of these assumptions, and so a method for reliably detecting structured aurora is developed in chapter~\ref{chapter:discrim}.
+
+Quantifying collective behavior of enormously large numbers of objects is an active area of research in computer vision.
+The social force model \citep{mehran2009} assigns low-density particles to a high-density optical flow field to detect outlier behavior.
+Mars rovers suffer far more extreme constraints on data bandwidth than HiST, additionally with a tiny fraction of the computing power, yet cloud and dust devil detection algorithms have been successfully implemented \citep{castano2008}.
+Tracking of ``enormously large'' numbers of bats using three IR cameras has been accomplished to great quantitative effect \citep{betke2007,betke2008}.
+None of these implementations faces quite the same issues as auroral researchers.
+
+With awareness of prior efforts in quantifying fine structured auroral behavior \citep{semeter2006}, the approach in this dissertation to detecting fine structure aurora represents a break with known auroral computer vision applications.
+The algorithm employed, while engaging several distinct computer vision techniques, is a discrimination step before invoking the far more computationally costly MBIR method.
+Since the target characteristics are themselves noise, an algorithm built and implemented to detect collective behavior of noise is described in chapter \ref{chapter:discrim}.
+
+\subsubsection{Objectives related to Discrimination of Ionospheric Turbulence in Radar and Optical Data}
+
+The objective of implementing the computer vision algorithms is to avoid an impossibly large computational burden of running the full HiST inversion algorithm on all auroral video collected.
+The alternative of manually examining all video is humanly infeasible, both due to time cost and levels of aurora too faint to be seen without literally watching the video stream with taking say every tenth frame to speed the process.

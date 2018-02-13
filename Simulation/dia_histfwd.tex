@@ -1,0 +1,32 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=2cm, auto]
+    
+    \node (in) [startstop, text width=4.5cm] {\baselineskip=10pt e\textsuperscript{-} Precipitation $\Phi_{top}$ \par};
+    \node (p) [process, below of=in, text width = 4.5cm,yshift=-0.5cm] {\baselineskip=12pt Excitation $\Rightarrow$ Prompt Emissions \[ p_\lambda(z) \propto p_{ij}(z) \] \par };
+    \node (B) [process, below of=p, text width=6cm, yshift=-1.25cm]{\baselineskip=10pt Image Intensity \begin{align*} 
+    	\mathscr{I} =&   \int_0^\infty \int_\lambda p(\lambda,\mathbf{\ell}) M(\lambda) \mathrm{d} \lambda \mathrm{d}\ell \\
+    	\mathbf{I} =& \tau a g \mathscr{I}
+    	\end{align*}
+    	\par};
+    %
+    \node (eig) [compute, right of=in, text width=3.cm,xshift=5.cm] {\baselineskip=10pt Eigenprofiles $\mathbf{T}(E,z)$ \par};
+    \node (P) [compute, below of=eig, text width=4cm,yshift=0.4cm] {Volume Emissions $\mathbf{P} = \mathbf{T}\Phi$};
+    \node (L) [compute, below of=P, text width=4cm,yshift=0.4cm] {Projection Matrix $\mathbf{L}$};
+    \node (min) [estimate,text width=5.5cm, below of=L,yshift=-0.5cm] {\baselineskip=12pt Estimate  \begin{align*} \hat{\Phi}_{top} &= \argmin_\Phi ||\mathbf{I}-\mathbf{LT}\hat{\Phi}_{top}||_2 \\
+        \hat{E}_0 &= \argmax_E \hat{\Phi}_{top} \\
+        \hat{B}_{\perp,0} &= \argmax_{B_\perp}  \hat{\Phi}_{top}
+        \end{align*} \par};
+    
+    %
+    \draw[arrow] (in) -- (p);
+    \draw[arrow] (p) -- (B);
+    \draw[arrow] (B) -- (min);
+    %
+    \draw[arrow] (eig) -- (P);
+    \draw[arrow] (P) --(L);
+    \draw[arrow] (L) -- (min);
+    \end{tikzpicture}
+    \caption{Block diagram of HiST auroral tomography forward model and data inversion.}
+    \label{fig:overall}
+\end{figure}

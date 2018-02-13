@@ -1,0 +1,59 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (phi) [startstop,text width=5cm] {$\Phi_{top}(E,t,x)$ dispersive precipitating electron flux \par};
+    
+    \node (ver) [process, below of=phi,text width=2.5cm,xshift=2.5cm] { Structured Aurora \par };
+    \node (turb)[process, left of=ver, text width=3.5cm,xshift=-2.5cm]{ Lower Ionospheric Plasma Turbulence \par};
+    
+    \node(isr) [process, below of=turb, text width=3cm] { ISR: strong backscatter \par};
+    
+    \node (onecam) [process, below of=ver, text width=2.5cm] { single camera \par };
+
+	\node (oneinv) [compute, below of=onecam,text width=3cm] { Estimate $\widehat{\Phi}_{top}(E,t)$ \par};
+    
+    \draw[arrow] (phi) -- (turb);
+    \draw[arrow] (turb)--(isr);
+    \draw[arrow] (isr)|-(oneinv) node[pos=0.85, above] {$z_0, N_e$};
+    
+    \draw[arrow] (phi) -- (ver);
+    \draw[arrow] (ver) -- (onecam);
+    \draw[arrow] (onecam) -- (oneinv);
+
+    
+    \end{tikzpicture}
+    
+    \caption{Prior work in single camera, single flux tube precipitating electron flux estimation vs. time.}
+    \label{fig:priortomo}
+\end{figure}
+
+\begin{figure}\centering 
+	%the \par is necessary after each text to make the \baselineskip take effect
+	\begin{tikzpicture}[node distance=1.5cm, auto]
+	
+	\node (phi) [startstop,text width=5cm] {$\Phi_{top}(E,t,x)$ dispersive precipitating electron flux \par};
+	
+	\node (ver) [process, below of=phi,text width=2.5cm,xshift=2.5cm] { Structured Aurora \par };
+	\node (turb)[process, left of=ver, text width=3.5cm,xshift=-2.5cm]{ Lower Ionospheric Plasma Turbulence \par};
+	
+	\node(isr) [process, below of=turb, text width=3cm] { ISR: strong backscatter \par};
+	
+	\node (cam) [process, below of=ver, text width=2.5cm] { multiple cameras \par };
+	
+	\node (caminv) [compute, below of=onecam,text width=3cm] { Estimate $\widehat{\Phi}_{top}(E,t,x)$ \par};
+	
+	\draw[arrow] (phi) -- (turb);
+	\draw[arrow] (turb)--(isr);
+	\draw[arrow] (isr)|-(caminv) node[pos=0.9, above] {$N_e$};
+	
+	\draw[arrow] (phi) -- (ver);
+	\draw[arrow] (ver) -- (cam);
+	\draw[arrow] (cam) -- (caminv);
+	
+	
+	\end{tikzpicture}
+	
+	\caption{Thesis work in multi-camera precipitating flux estimation vs. time and space.}
+	\label{fig:thistomo}
+\end{figure}

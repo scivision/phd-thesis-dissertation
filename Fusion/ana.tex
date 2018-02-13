@@ -1,0 +1,44 @@
+\section{Results}\label{sec:fusana}
+
+Discrete auroral drivers can be broadly divided into quasi-static inverted-V structures and Alfvén waves (AW).
+AW-driven auroral forms include splitting auroral arcs and flaming aurora.
+Discrete auroral arcs driven by sources other than dispersive Alfvén waves include kinked auroral arcs and non-flaming, non-splitting discrete arcs.
+HiST can distinguish between the differential number flux precipitation signatures responsible for AW and non-AW aurora.
+
+Inverted-V potential drops have several associated mechanisms that can lead to fast time-dependent behavior such an intensity modulation.
+Inverted-V auroral features do not have dispersive energy behaviors associated with them--precipitating particles across a range of energies arrive at roughly the same time $\Delta t \ll \unit[10]{ms}$ difference.
+Double layers, and series of double layers may exist within an inverted-V structure giving rise to narrower width auroral arcs.
+
+AW are associated with reconfiguration of the magnetosphere--particularly during the breakup and expansion phase of substorms, where a quarter-trillion watts are launched towards Earth \citep{mottez2015}.
+AW are integral to the settling out of the system after a change in current flux.
+The conditions favorable for DAW aurora are delineated in Figure~\ref{fig:alfvenblock}.
+\input{./Fusion/dia_alfven}
+A key ground-observable characteristic of Alfvénic aurora is narrow arc width.
+``Width'' describes spatial scale size in the dimension perpendicular to geomagnetic field $B$.
+\citet{maggsdavis1968} noted that the lower observed limit of \unit[70]{m} arc width was instrumentally limited.
+\citet{borovsky1993} noted that observations from contemporary ground-based auroral arc measurements continued to reveal arc widths less than \unit[100]{m}.
+Alfvénic aurora are associated with a sudden large increase in flux of particles accelerated from a few eV to as much as \unit[10]{keV} \citep{chaston2003}.
+Due to dispersion along the accelerated particle path, over several hundred milliseconds \citep{dahlgren2013} the characteristic energy $E_0$ will go from order \unit[10]{keV} to order \unit[100]{eV}.
+A representative differential number flux for a DAW event is shown in Figure~\ref{fig:alfvenflux}.
+\begin{figure}
+    \includegraphics[width=0.9\columnwidth]{gfx/eflux}
+    \caption{Evolution of characteristic energy $E_0$ from order \unit[10]{keV} to order \unit[100]{eV} occurs in \unit[100..1000]{ms} for DAW.
+    In this plot, overall flux $Q_0$ is held constant.}
+    \label{fig:alfvenflux}
+\end{figure}
+\textit{In situ} Freja measurements with \unit[32]{kHz} sampling rate \citep{stasiewicz2000} consistently showed plasma evacuations by roughly a factor of two near magnetic perturbations along $B_\parallel$ consistent with the presence of Alfvén waves.
+Considering the \unit[7]{km/s} platform motion, the spectrograms of magnetic field point to $k_\perp \in [10,7000]$~m.
+Freja also observed clear correlations \citep{stasiewicz2000} with turbulent magnetic field and suprathermal electron bursts ranging from \unit[100]{eV} to \unit[20]{keV} with particle fluxes of order 100 times over the background, and Poynting flux of $\unit[1..20]{mW/m^2}$.
+
+The sampling cadence configuration of PFISR and the optical instruments for each experiment is given in Table~\ref{tab:cadence}.
+These raw sample times are far faster than the minute cadence typically employed for plasma parameter estimation, yet those minute-long estimates break down in the face of these transient events.
+We examine four types of events in turn: auroral breakup, splitting auroral arc, flaming auroral arc, and kinked arc with joint analysis of optical, spectral and radar features.
+
+
+\input{./Fusion/breakup}
+
+\input{./Fusion/split}
+
+\input{./Fusion/flame}
+
+\input{./Fusion/kinked}

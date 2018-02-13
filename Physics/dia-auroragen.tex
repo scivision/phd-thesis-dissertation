@@ -1,0 +1,57 @@
+\begin{figure}\centering
+	\begin{tikzpicture}
+	\node (precip) [startstop,text width=3cm] {Precipitation $\Phi_{top}(E)$ \par };
+	
+	\node (B) [process,below of=precip,yshift=-0.5cm] {$B_\parallel$ guided trajectory \par};
+	
+	\node (bang) [compute,below of=B,yshift=-0.25cm] {inelastic collision \par};
+	
+	\node (exc) [process,below of=bang,yshift=-0.5cm,text width=2cm] {excitation \unit[1..100]{eV} \par};
+	\node (prompt)[process,below of=exc,xshift=-1.5cm,yshift=-1cm]{prompt \par};
+	\node (forb)[process,right of=prompt,xshift=2cm]{forbidden \par};
+	
+	%\node (diss)[process,left of=exc,xshift=-2cm]{ dissociation \par};
+	\node (ioni)[process,left of=exc,xshift=-3cm,text width=2cm] { impact ionization $\sim \unit[35]{eV}$ \par};
+	\node (heat)[process,right of=exc,xshift=2cm] { heat \par};
+	\node (radio)[startstop,right of=heat,xshift=2cm,text width=2cm]{ radio (ELF-HF) \par};
+	
+	\node (upflow)[startstop,below of=heat]{ion upflow \par};
+	
+	\node(secondary) [startstop,below of=ioni,yshift=-0.75cm,text width=2cm] {secondary electrons \par};
+	
+	\node (patt)[process,below of=prompt,text width=2.5cm,yshift=-0.5cm]{ atmospheric attenuation \par};
+	\node (pass)[process,below of=patt,yshift=-0.5cm]{ filter: pass \par};
+	
+	\node (fatt)[process,below of=forb,text width=2.5cm,yshift=-0.5cm]{ atmospheric attenuation \par};
+	\node (block)[process,below of=fatt,yshift=-0.5cm]{ filter: block \par};
+	
+	\node (chip)[startstop,below of=pass,text width=2cm,yshift=-0.25cm] {imaging chip \par};
+	
+	
+	\draw[arrow] (precip) -- (B);
+	\draw[arrow] (B) -- (bang);
+	
+	\draw[arrow] (bang) -- (exc);
+	\draw[arrow] (bang) -- (ioni);
+	%\draw[arrow] (bang) -- (diss);
+	\draw[arrow] (bang) -- (heat);
+	\draw[arrow] (bang) -- (radio);
+	
+	\draw[arrow] (ioni) --(secondary);
+	
+	\draw[arrow] (heat) -- (upflow);
+	
+	\draw[arrow] (exc) -- (prompt);
+	\draw[arrow] (prompt) -- (patt);
+	\draw[arrow] (patt) -- (pass);
+	\draw[arrow] (pass) -- (chip);
+	
+	\draw[arrow] (exc) -- (forb);
+	\draw[arrow] (forb) -- (fatt);
+	\draw[arrow] (fatt) -- (block);
+	
+	\end{tikzpicture}
+	\caption{Block diagram of auroral optical emissions generation and observation.
+	The \texttt{filter} blocks represent emissions that are passed or blocked by HiST bandstop filtering.}
+	\label{fig:auroragen}
+\end{figure}

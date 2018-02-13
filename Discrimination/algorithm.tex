@@ -1,0 +1,131 @@
+\input{./Discrimination/imageload}
+
+\input{./Discrimination/imagefilt}
+
+\input{./Discrimination/optflow}
+
+\subsection{Foreground Segmentation}\label{sec:seg}
+The HiST system is configured with camera gain set to maximize dynamic range under typical observing conditions.
+The gain of the cameras are fixed for a given HiST experiment since tomographic analysis by definition is highly sensitive to relative intensity calibration of the cameras.
+The SNR of observable auroral arcs cover about nine orders of magnitude with 16-bit scientific cameras by
+\begin{equation}
+20\log_{10}\left(2^{16}\right) = \unit[96.3]{dB}
+\end{equation}
+less ENOB, amplifier noise, readout noise, clock noise, \&c.
+Thus a constant false alarm rate (CFAR) \citep{cfaroptical} algorithm was devised based on the noisiness of the video.
+False negatives will increase as video SNR decreases, but this is necessary to avoid constant false positives during the vast majority of the time when Alfvénic aurora is not within 5 degrees of magnetic zenith for the HiST system.
+The CFAR algorithm employed consists of two user-defined constants ${C_0,C_1}$ for lower (clouds/diffuse aurora suppressing) and upper (noise \& star-suppressing) decision thresholds.
+The decision outcome is stored in binary matrix $A$ of the same dimensions as a single image.
+\begin{equation}
+A = T_0 < \sqrt{U^2 + V^2} < T_1
+\end{equation}
+Each element of $A$ maps 1:1 to a digital video image pixel $I(x,y)$ by \eqref{eq:anadig} corresponding to the latest frame of video processed.
+
+
+%\subsection{Despeckle Filter}\label{sec:despeck}
+%A 2-D median filter is applied to reduce the presence of impulse-like noise induced by the noisy original image.
+%In a general 2-D median filter, pixel values are replaced with the median of the $N$ neighbor pixels in both directions.
+%Pixel groups must have at least $N \times N-1$ pixels along the other axis for $N-2 \times N-3$ pixel group to ``survive'' the median filter operation as illustrated in Figure~\ref{fig:medfilt}.
+%The net effect is to remove individual binary pixels before further processing steps.
+
+\subsection{Morphological Erosion}\label{sec:erode}
+The morphological erosion step removes isolated pixels like a median filter, and additionally removes groups of pixels and protuberances too small to fit the structuring element (SE).
+If such a region cannot completely contain the SE, that region is eliminated from the binary image. 
+Morphological erosion is a set process where image $A$ is operated on by translating structuring element (SE) $B$ over all $A$ 
+\begin{equation}\label{eq:erosion}
+A \ominus B = \lbrace z|(B)_z \subseteq A \rbrace = \lbrace z | (B)_z \cap A^c = \oslash \rbrace
+\end{equation}
+where $(B)_z$ represents the translation of $B$ across all $A(i,j)$.
+\eqref{eq:erosion} says that as $B$ is scrubbed over all of $A$ with integer-based translation $z$, keep only those values where $B$ is \textit{entirely} contained in $A$.
+%If a region can contain the SE, then as the SE is slid around inside the region, the pixels “touched” by the center pixel of the structuring element are preserved.
+A cartoon depiction of erosion with a rectangular SE in orange and the resulting one-pixel wide red line in Figure~\ref{fig:erode}.
+Notice at the chamfered ends of the pixel region, there was no output because the SE did not fit entirely within that region.
+\begin{figure}\centering
+	\includegraphics[width=0.8\linewidth]{gfx/erode}
+	\caption{Example of morphological erosion with a rectangular structuring element. 
+		Outside blue region is assumed identically zero.}
+	\label{fig:erode}
+\end{figure}
+A comparison of the median filter operation versus the erosion operation is illustrated in Figure~\ref{fig:medfilt}.
+\begin{figure}\centering
+    \includegraphics[width=0.75\columnwidth]{gfx/medfilt}
+    \caption{Binary Median Filter versus Morphological Erosion example, showing how at least $N \times N-1$ pixels are required to ``survive'' the operation.}\label{fig:medfilt}
+\end{figure}
+This step provides much of the denoising one might otherwise apply at substantial computational expense earlier in the process, which is important for rapid processing of terabytes of data whether online or offline.
+
+\subsection{Morphological Dilation}\label{sec:dilate}
+While erosion removes thin or isolated features in an image, dilation is a thickening operation that connects small gaps in $A$ according to $B$
+\begin{equation}\label{eq:dilate}
+A \oplus B = \bigcup_z (B)_z.
+\end{equation}
+Imagine a peg in the center pixel of the structuring element--the result of dilation is that any place touched by any pixel of the structuring element as the peg is translated within $A$ is declared binary True.
+A cartoon example of morphological dilation is shown in Figure~\ref{fig:dilate}. 
+\begin{figure}\centering
+    \includegraphics[width=0.7\linewidth,trim=10 0 10 0,clip]{gfx/dilate}
+    \caption{Dilation example with orange 5 pixel disk SE. 
+            Dilation output is green chamfered bar 5 pixels wide due to SE and one-pixel wide input.}\label{fig:dilate}
+\end{figure}
+Note that even if the red line in Figure~\ref{fig:dilate} had a break up to one-half the diameter of the structuring element, the continuous green form seen at the bottom of Figure~\ref{fig:dilate} would result. 
+
+\subsection{Morphological Opening}
+Morphological opening is an idempotent set operation expressed by erosion \eqref{eq:erosion} followed by dilation \eqref{eq:dilate}.
+\begin{equation}\label{eq:open}
+A \circ B = \left(A \ominus B \right) \oplus B.
+\end{equation}
+Observe the rounded corners in the green output of the opening example in Figure~\ref{fig:opening}.
+\begin{figure}\centering
+    \includegraphics[width=0.7\linewidth,trim=70 20 50 50,clip]{gfx/open}
+    \caption{Opening example with disk SE. Opening output is green rounded rectangle.}\label{fig:opening}
+\end{figure}
+The rounded protrusion at the upper left represents the partial fitting of the SE into the notch into the input $A$.
+Heuristically, erosion retains pixels where the center of the SE touches when the SE fits within the region $A$.
+Opening keeps all the pixels the SE touches when the SE fits within $A$.
+
+\subsection{Morphological Closing}\label{sec:close}
+Morphological closing is an idempotent set operation expressed by dilation \eqref{eq:dilate} followed by erosion \eqref{eq:erosion}
+\begin{equation}\label{eq:close}
+A \bullet B = \left(A \oplus B \right) \ominus B.
+\end{equation}
+Closing is heuristically represented by passing the SE completely outside and along the exterior-like rolling the disc SE in Figure~\ref{fig:closing} and filling in gaps to meet the SE.
+\begin{figure}\centering
+\includegraphics[width=0.7\linewidth,trim=50 0 50 0,clip]{gfx/close}
+\caption{Closing example with orange disk SE. Closing output is green concave shape.}\label{fig:closing}
+\end{figure}
+Morphological closing fills in interior oases that may have occurred due to noise or random intensity behavior at the optical flow thresholding step.
+This is physically justified by that aurora is not filled with small holes.
+The smallest plausible auroral feature size is $\gg$ 1 pixel for the 9 degree field of view chosen for each HiST camera.
+The filling operation implemented by closing is important for the next step which qualifies Alfvénic arc plausibility based on the amount of aurora in view that is moving together.
+
+\subsection{Connected Components Criterion}\label{sec:blob}
+Alfvénic aurora is likely to occur as a long sinuous continuous thin feature in the field of view.
+The Alfvénic arc may split or flame and intensity may be large or small.
+We choose as our criteria a region of thin, rapidly moving aurora of more than 100 contiguous pixels.
+At this time we do not impose a shape criteria as this may discard some of the wide variety of shapes Alfvénic aurora can take on.
+Such a specific morphology classifier would be a future subsequent step.
+
+We declare as connected any region of contiguous 8-connected pixels.
+8-connected neighbors mean any pixel touching a face or corner of another pixel as depicted in Figure~\ref{fig:8conn}.
+\begin{figure}\centering
+	\includegraphics[width=0.8\linewidth,trim=0 0 10 0,clip]{gfx/4conn8conn}
+	\caption{Left: 4-connected neighbor pixels. Right: 8-connected neighbor pixels.}\label{fig:8conn}
+\end{figure}
+Connected component analysis (CCA) computes the size of the oriented minimum bounding box containing the convex hull of an 8-connected pixel region representing the declared foreground (target) pixel \citep{gonzalezwoods}. 
+The cartoon in Figure~\ref{fig:connblob} of the convex hull (outlined in purple) of connected pixels is enclosed by the minimum bounding box (outlined in green).
+\begin{figure}\centering
+	\includegraphics[width=\linewidth,trim= 10 0 10 0,clip]{gfx/connblobcartoon}
+	\caption{Example of CCA--upper left pixel group is rejected as having too small convex hull.  Lower right pixel group enclosed in green bounding box is accepted as having sufficiently large convex hull.}\label{fig:connblob}
+\end{figure}
+Observe how the upper left group of connected pixels has a convex hull yet passes through CCA, since the area of the minimum bounding box is too small. 
+In our implementation we require that
+\begin{equation}
+A < A_{bb} < B
+\end{equation}
+where $A=100$ and $B=4\times 10^5$ are the minimum and maximum area of the CCA bounding box for each region area $A_{bb}$.
+The CCA area minimum threshold keeps isolated clutter regions with a small minimum bounding box from being declared a target.
+The CCA area maximum threshold mitigates dataframe-wide shifts in the cross-ambiguity that occur during large shifts in the self-ambiguity.
+
+\subsection{Discriminator Output}\label{sec:discout}
+The decision stream from section~\ref{sec:blob} is written to an HDF5 file.
+A $64 \times 64$ pixel preview video of frames tagged in the HDF5 file is generated for human consumption via a Google Drive upload.
+The bottom block in Figure~\ref{fig:blockcv} corresponds to the input of section~\ref{sec:inv}, where quantitative analysis of the auroral features continues.
+\input{./Discrimination/diaoptflow}

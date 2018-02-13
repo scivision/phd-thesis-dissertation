@@ -1,0 +1,40 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (in) [startstop] {§\ref{sec:load} load next video frame $T_L=\unit[1]{s}$ \par};
+    
+    \node (flow) [process, below of=in] {§\ref{sec:of} Dense Optical Flow Estimation \par };
+    
+    \node (med) [compute, right of=flow, xshift=5.5cm, text width=5cm] { $T_0 = C_0 \times$Median(flow) $T_1 = C_1 \times$Median(flow) \par };
+    
+    \node (seg) [process, below of=flow,text width=7cm]{§\ref{sec:seg} Optical Flow based Segmentation $ T_0 < \sqrt{U^2 + V^2} < T_1 $ \par};
+    
+    \node (erode) [process, below of=seg]{§\ref{sec:erode} Morphological Erosion \par};
+    
+    \node (close) [process, below of=erode]{§\ref{sec:close} Morphological Closing \par};
+    
+    \node (blob) [process, below of=close]{§\ref{sec:blob} Connected Component Criteria \par};
+    
+    \node(detect) [decision, below of=blob]{Alfvénic Aurora? \par};
+    
+    \node(inv) [startstop,below of=detect]{§\ref{sec:hist} HiST Inversion \par};
+    
+    %
+    
+    
+    \draw[arrow] (in) -- (flow);
+    \draw[arrow] (flow) -- (med);
+    \draw[arrow] (med) |- (seg);
+    \draw[arrow] (flow) -- (seg);
+    \draw[arrow] (seg) -- (erode);
+    \draw[arrow] (erode) -- (close);
+    \draw[arrow] (close) -- (blob);
+    \draw[arrow] (blob) -- (detect);
+    \draw[arrow] (detect) -- (inv);
+    
+    \end{tikzpicture}
+    
+    \caption{Block diagram of  Alfvénic aurora detection algorithm.}
+    \label{fig:blockcv}
+\end{figure}

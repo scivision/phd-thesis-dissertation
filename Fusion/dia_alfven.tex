@@ -1,0 +1,60 @@
+\begin{figure}\centering 
+    %the \par is necessary after each text to make the \baselineskip take effect
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+    
+    \node (magdis) [startstop,text width=4cm] {Magnetospheric discontinuity (e.g. reconnection) \par };
+       
+    \node (iaw) [process, below of = magdis,xshift=-1 cm] {IAW $B_\parallel$ \par };
+    
+    \node (kaw) [process,right of = iaw,xshift=1 cm] {KAW $B_\parallel$ \par };
+    
+    \node (wl) [decision, below of=iaw,text width=2 cm,yshift=-0.75cm] { cold plasma  $\omega < \omega_{ci}$ $v_A > v_{te}$ \par };
+    
+    
+    \node (iontherm) [estimate, below of=wl,yshift=-1 cm, text width=5cm]{ $k \sim$ ion thermal gyroradius: $ \rho_i = \frac{\sqrt{T_i/m_i}}{\omega_{ci}} $ \par};
+    
+    \node (iongyro) [estimate, left of=iontherm,xshift=-4cm, text width=4cm]{ $k \sim$ ion gyroradius: $ \rho_s = \frac{\sqrt{T_e/m_i}}{\omega_{ci}} $ \par};
+    
+    \node (eskin) [estimate, right of=iontherm,xshift=4cm,text width=4cm]{ $k \sim$ electron skin depth: $\lambda_e = \frac{c}{\omega_{pe}}$ \par};
+    
+    \node (accel) [process, below of=iontherm,yshift=-0.25cm]{$ E_\parallel$ \par};
+    
+    \node(eflux) [process,below of=accel,text width=4cm]{100x background dispersive or flat-top electron flux $\Phi$ \par};
+    
+    \node(lt) [startstop, below of=eflux,xshift=-2cm]{Langmuir Turbulence \par};
+    
+    \node(aurora) [startstop, below of=eflux,xshift=2cm]{Alfvénic Aurora \par};
+    
+    \node(neial) [compute,below of=lt,xshift=-1cm] {NEIALs \par};
+    \node(isr) [compute,below of=neial]{ISR backscatter \par};
+    \node(isrest)[startstop,below of=isr,text width=3cm,yshift=-.5cm]{CFAR Turbulence estimate \par};
+    
+    \node(hist)[compute,below of=aurora,xshift=1cm]{HiST: filter, camera};
+    \node(det)[compute,below of=hist,text width=3cm,yshift=-.5cm]{HiST: Alfvénic discrimination algorithm};
+    \node(est)[startstop,below of=det,text width=3cm,yshift=-.75cm]{HiST: $\Phi_{top}$ precipitation estimation};
+    
+    \draw[arrow] (magdis) -- (iaw);
+    \draw[arrow] (magdis) -- (kaw);
+    \draw[arrow] (iaw) -- (wl);
+    \draw[arrow] (wl) -- (iongyro);
+    \draw[arrow] (wl) -- (iontherm);
+    \draw[arrow] (wl) -- (eskin);
+    \draw[arrow] (iongyro) -- (accel);
+    \draw[arrow] (iontherm) -- (accel);
+    \draw[arrow] (eskin) -- (accel);
+    \draw[arrow] (accel) -- (eflux);
+    \draw[arrow] (eflux) -- (aurora);
+    \draw[arrow] (eflux) -- (lt);
+    
+    \draw[arrow] (lt) -- (neial);
+    \draw[arrow] (neial) -- (isr);
+    \draw[arrow] (isr) -- (isrest);
+    
+    \draw[arrow] (aurora) -- (hist);
+    \draw[arrow] (hist) -- (det);
+    \draw[arrow] (det) -- (est);
+    
+    \end{tikzpicture}
+    \caption{Block diagram of Alfvénic aurora acceleration mechanism and HiST observation.}
+    \label{fig:alfvenblock}
+\end{figure}

@@ -1,0 +1,56 @@
+\chapter{Instruments}
+\label{chapter:inst}
+\thispagestyle{myheadings}
+
+\graphicspath{{Instruments/}}
+
+\epigraph{The primary excitation mechanism of the aurora is provided by the entry of fast protons, possibly together with other positive ions, into the earth’s atmosphere. The primary electrons will be stopped at great heights and will not give a large contribution to the auroral luminosity.}{[NB: \textit{In situ} measurements by \citet{mcilwain1960} reversed the conclusions of the second sentence.] \citep{seaton1954}}
+
+Auroral researchers put crowdsourced synchronized data acquisition into practice a century ago. 
+Størmer set up several Norwegian schools and stations appropriately spaced for auroral stereography with cameras and telephones.
+Størmer experimentally determined for the auroral forms he was interested in studying that cameras should be separated by at least \unit[20]{km} and optimally \unit[50]{km}, with wider separation for higher altitude aurora \citep{egeland2013} such as \unit[630.0]{nm} emissions.
+Two previous experiments with \unit[3..5]{km} camera baseline range were unsuccessful with trigonometric stereography methods \citep{egeland2013}.
+Figure~\ref{fig:stormersens}(b) shows the ill-conditioning that narrow-spaced auroral observatories suffer from, using Størmer's trigonometric method \citep{egeland2013}
+\begin{equation}\label{eq:stormer}
+h = d \frac{\sin\alpha \sin\beta}{\sin(\beta-\alpha)}
+\end{equation}
+where $h$ is altitude [km] of the auroral feature, $d$ is the distance [km] between observers, and $\alpha,\beta$ are the elevation angles to the auroral feature for each observer.
+\begin{figure}\centering
+	\includegraphics[width=\linewidth]{gfx/stormer_sens}
+	\caption{(a) Solutions to \eqref{eq:stormer} for station spacing $x \in \lbrace 3.4, 4.3, 20,50 \rbrace$~km.
+		(b) Derivative of \eqref{eq:stormer}, revealing problematic ill-conditioning for narrow-spaced observations.}
+	\label{fig:stormersens}
+\end{figure}
+Considering Størmer's standard $40^\circ$ FOV camera \citep{egeland2013}, film print resolution, optically thin target biasing peak intensity and observer positional uncertainty, it would be difficult to get sufficient accuracy with sub-\unit[5]{km} spaced cameras, from the author's personal experience at these techniques with $9^\circ$ FOV digital cameras.
+Timing uncertainty would be significant in Størmer's voice-synchronized \unit[200]{ms} exposure with human auditory-motor reaction time of an excellent athlete under ideal conditions at \unit[82]{ms} mean with \unit[17]{ms} standard deviation \citep{pain2007}.
+Consider the profoundly cold outdoor conditions in northern Scandinavia with 1910-vintage clothing, finger slipping on the shutter button, shivering and the like.
+It is probable that a mean delay of several hundred milliseconds with large standard deviation might have been the case for an ensemble of freezing students and adult photographers under such trying conditions.
+This temporal inaccuracy would not be devastating for inverted-V aurora or other slow to moderate $B_\perp$ apparent speed morphologies.
+For the narrow, fast-moving features studied by HiST, such mismatched synchronization would be completely intolerable.
+
+
+Observational biases, ill-posed/ill-conditioned systems and other inherent remote sensing challenges both instrumental and mathematical, have often been limiting factors in advancing magnetosphere-ionosphere coupling theory.
+\textit{In situ} sensing was vital to unlocking physical puzzles at the dawn of the space age and continues to be an essential component to unlocking the secrets of the fine structure of earth's magnetosphere.
+Spatiotemporal ambiguities implicit in \textit{in situ} ionosphere and magnetosphere sensing are partially mitigated by close-flying formations of rockets \citep{lynch2012} and satellites \citep{parham2016}.
+However, the ability to observe wide swathes of sky at high spatiotemporal resolution is vital to numerous important geospace problems.
+An \textit{in situ} platform in motion will always have sampling ambiguities as the structure observed is changing in both space and time as the platform only measures one point in both space and time. 
+There is a symbiosis as the \textit{in situ} sensing gives clues as to the particle kinetics responsible for auroral displays, and the ground-based instruments see a swath of sky, using a suitable forward model in the data inversion.
+
+This chapter details the configuration and buildout of the DMC and HiST instruments. 
+DMC was a proof-of-concept fielded prototype, observing multiple scales of aurora simultaneously as described in section~\ref{sec:dmc}.
+The HiST instrument described in section~\ref{sec:hist} is a full-fledged auroral tomography system, yielding \unit[20]{ms} cadence estimates of auroral precipitation from approximately \unit[50..20000]{eV}, an energy range adequate to characterize Alfvénic aurora and to distinguish alternate particle acceleration mechanisms.
+Chapter~\ref{chapter:sim} details the planning and modeling for the optimum \unit[1..10]{km} camera spacing of the HiST system. 
+HiST uses robust numerical methods to overcome the ill-posed, ill-conditioned and non-uniqueness problems that frustrated Størmer a century ago.
+The purpose of this chapter is to provide historical context of auroral remote sensing leading to HiST, review the state of the art of high-resolution auroral sensors, and describe two specific optical remote sensing systems (DMC/HiST) developed and deployed for the dissertation research.
+
+\input{./Instruments/intro}
+
+\input{./Instruments/dmc}
+
+\input{./Instruments/hist}
+
+%\input{./Instruments/pfisr}
+
+%\input{./Instruments/dasc}
+
+
