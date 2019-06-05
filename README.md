@@ -1,4 +1,11 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3239516.svg)](https://doi.org/10.5281/zenodo.3239516)
+
 # PhD Thesis in LaTeX
+
+PDF uploads:
+
+* [OpenBU](https://hdl.handle.net/2144/23382)
+* [Zenodo](https://zenodo.org/record/3239516#.XPgg44hKhlY)
 
 My Ph.D. thesis/dissertation on auroral tomography, sensor fusion, machine learning.
 It fits the Boston University Librarian's specifications, including:
