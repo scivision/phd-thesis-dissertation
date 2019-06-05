@@ -1,0 +1,20 @@
+image:
+- Ubuntu1804
+
+clone_depth: 25
+
+build: off
+
+init:
+- sh: sudo apt-get update > /dev/null
+- sh: sudo apt-get install pdflatex bibtex texlive-science texlive-font-utils > /dev/null
+
+test_script:
+- pdflatex thesis
+- bibtex thesis
+- pdflatex thesis
+- pdflatex thesis
+
+
+artifacts:
+- path: thesis.pdf
