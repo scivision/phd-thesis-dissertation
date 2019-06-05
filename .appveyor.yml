@@ -7,7 +7,7 @@ build: off
 
 init:
 - sh: sudo apt-get update > /dev/null
-- sh: sudo apt-get install pdflatex bibtex texlive-science texlive-font-utils > /dev/null
+- sh: sudo apt-get install texlive-latex-base texlive-bibtex-extra texlive-science texlive-font-utils > /dev/null
 
 test_script:
 - pdflatex thesis

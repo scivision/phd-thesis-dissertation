@@ -1,4 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3239516.svg)](https://doi.org/10.5281/zenodo.3239516)
+[![Build status](https://ci.appveyor.com/api/projects/status/a0jlrsh3b8bl7u21?svg=true)](https://ci.appveyor.com/project/scivision/phd-thesis-dissertation)
 
 # PhD Thesis in LaTeX
 
@@ -21,7 +22,7 @@ Should be 312 PDF pages (including all the front matter unnumbered pages).
 
 I kept things as simple as possible.
 
-* Linux: `apt install pdflatex bibtex texlive-science texlive-font-utils`
+* Linux: `apt install texlive-latex-base texlive-bibtex-extra texlive-science texlive-font-utils`
 * Windows: use [MiKTeX](https://miktex.org/download), which auto-installs needed packages as needed
 * Mac: `brew cask install basictex`
 
